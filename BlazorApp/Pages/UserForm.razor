@@ -1,0 +1,55 @@
+﻿@page "/userform"
+
+<h3>User Form</h3>
+<h4 class="text-success">
+    @formResult
+</h4>
+@*<p>
+    First Name: @person.FirstName
+</p>
+<p>
+    Last Name: @person.LastName
+</p>*@
+<EditForm Model="@person" OnValidSubmit="HandleOnValidSubmit">
+    <DataAnnotationsValidator />
+    <ValidationSummary />
+    <p>
+        <label>
+            First Name:
+            <InputText id="firstName" @bind-Value="person.FirstName" />
+        </label>
+    </p>
+    <p>
+        <label>
+            Last Name:
+            <InputText id="lastName" @bind-Value="person.LastName" />
+        </label>
+    </p>
+    <p>
+        <label>
+            Age:
+            <InputNumber id="age" @bind-Value="person.Age" />
+        </label>
+    </p>
+    <p>
+        <label>
+            Give Concent:
+            <InputCheckbox id="concent" @bind-Value="person.GaveConcent" />
+        </label>
+    </p>
+
+    <button class="btn btn-primary" type="submit">Submit</button>
+</EditForm>
+
+@code {
+    private PersonModel person = new PersonModel();
+    private string formResult = "";
+
+    private void HandleOnValidSubmit()
+    {
+        formResult = $"{ person.FirstName } { person.LastName } was just created.";
+        person = new PersonModel();
+    }
+
+
+}
